@@ -34,6 +34,7 @@ class SplashActivity: AppCompatActivity() {
         bundle.putParcelable(DoctorActivity.DOCTOR_INTENT_KEY, doctor)
         intent.putExtras(bundle)
         startActivity(intent)
+        finish()
     }
 
     companion object {

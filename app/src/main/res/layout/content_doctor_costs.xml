@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
 
     <android.support.constraint.Guideline
@@ -48,8 +48,8 @@
         style="@style/CostsLabelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/costs_provider_rate_label"
         android:maxWidth="58dp"
+        android:text="@string/costs_provider_rate_label"
         app:layout_constraintEnd_toStartOf="@id/providerEndGuideLine"
         app:layout_constraintTop_toBottomOf="@id/costsTopGuideLine" />
 
@@ -59,23 +59,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/costs_cost_label"
-        app:layout_constraintStart_toStartOf="@id/costsStartGuideLine"
-        app:layout_constraintBottom_toBottomOf="@id/sidecarLabelText" />
+        app:layout_constraintBottom_toBottomOf="@id/sidecarLabelText"
+        app:layout_constraintStart_toStartOf="@id/costsStartGuideLine" />
 
     <View
         android:id="@+id/lineSeparatorView"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/doctorTabBorder"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/sidecarLabelText"
+        android:background="@color/doctorTabBorder"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/costsStartGuideLine"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/sidecarLabelText" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/costsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/lineSeparatorView"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:clipToPadding="false"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lineSeparatorView" />
 
 </android.support.constraint.ConstraintLayout>

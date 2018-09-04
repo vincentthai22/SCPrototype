@@ -71,6 +71,11 @@
         <item name="android:textColor">@color/doctorTabSelectorColor</item>
     </style>
 
+    <style name="CostsRecyclerInnerCostValuTextView" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/costs_recycler_inner_cost_value_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 
 
 

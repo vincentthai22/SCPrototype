@@ -10,4 +10,8 @@ object DoctorDataSource {
     fun retrieveDoctorOverviewData(docId: String, plainDoctor: Doctor, listener: DoctorOverviewAsyncTask.Listener) {
         DoctorOverviewAsyncTask.retrieveDoctorDataFrom(String.format(DOCTOR_OVERVIEW_URL_FORMAT_REQUIRES_ID, docId), listener, plainDoctor)
     }
+
+    fun retrieveDoctorCostData(docId: String, listener: DoctorCostsAsyncTask.Listener) {
+        DoctorCostsAsyncTask.retrieveDoctorDataFrom(String.format(DOCTOR_COSTS_URL_FORMAT_REQUIRES_ID, docId), listener)
+    }
 }
