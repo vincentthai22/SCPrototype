@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SideCarPrototype</string>
+
+    <!--Doctor Activity-->
+    <string name="doctor_tab_overview">Overview</string>
+    <string name="doctor_tab_costs">Costs</string>
+
+    <!--Doctor Overview-->
+    <string name="overview_address_label">Address</string>
+    <string name="overview_phone_label">Phone</string>
+    <string name="overview_specialties_label">Specialties</string>
+    <string name="overview_prices_label">Prices</string>
+
+    <!--Doctor Costs-->
+    <string name="costs_cost_label">Cost</string>
+    <string name="costs_provider_rate_label">Provider Rate</string>
+    <string name="costs_covers_label">Sidecar Covers</string>
+
+</resources>

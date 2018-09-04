@@ -1,0 +1,77 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="DoctorFontName">
+        <item name="android:fontFamily">@font/apercu_regular_pro</item>
+    </style>
+
+    <style name="DoctorTitleText" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/doctor_title_font_size</item>
+        <item name="android:textColor">@color/doctorTitleTextColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/doctor_title_text_min_width</item>
+    </style>
+
+    <style name="DoctorSubTitleText" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/doctor_sub_title_font_size</item>
+        <item name="android:textColor">@color/doctorSubTitleTextColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/doctor_title_text_min_width</item>
+    </style>
+
+    <style name="OverviewSubHeaderText" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/sub_header_text_size</item>
+        <item name="android:textColor">@color/subHeaderColor</item>
+        <item name="android:layout_marginTop">@dimen/overview_subheader_margin_top</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="OverviewValueText" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/overview_item_text_size</item>
+        <item name="android:textColor">@color/doctorOverviewValueColor</item>
+    </style>
+
+    <style name="OverviewTagText" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/overview_tag_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginTop">@dimen/overview_tag_margin_top</item>
+        <item name="android:paddingTop">@dimen/overview_tag_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/overview_tag_padding_vertical</item>
+        <item name="android:paddingStart">@dimen/overview_tag_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/overview_tag_padding_horizontal</item>
+    </style>
+
+    <style name="CostsLabelText" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/sub_header_text_size</item>
+        <item name="android:textColor">@color/subHeaderColor</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:maxWidth">@dimen/costs_label_max_width</item>
+    </style>
+
+    <style name="CostsRecyclerIdTextView" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/costs_recycler_text_size</item>
+        <item name="android:textColor">@color/doctorTabSelectorColor</item>
+    </style>
+
+    <style name="CostsRecyclerRatesTextView" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/costs_recycler_text_size</item>
+        <item name="android:textColor">@color/doctorOverviewValueColor</item>
+    </style>
+
+    <style name="CostsRecyclerInnerCostTextView" parent="DoctorFontName">
+        <item name="android:textSize">@dimen/costs_recycler_inner_cost_label_text_size</item>
+        <item name="android:textColor">@color/doctorTabSelectorColor</item>
+    </style>
+
+
+
+
+</resources>

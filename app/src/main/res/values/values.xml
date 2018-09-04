@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--toolbar dimens-->
+    <dimen name="doctor_toolbar_height">75dp</dimen>
+    <dimen name="doctor_toolbar_font_size">18sp</dimen>
+
+    <!--doctor title dimens-->
+    <dimen name="doctor_title_text_min_width">352dp</dimen>
+    <dimen name="doctor_title_height">45dp</dimen>
+    <dimen name="doctor_title_font_size">36sp</dimen>
+    <dimen name="doctor_sub_title_font_size">16sp</dimen>
+    <dimen name="doctor_title_margin_top">25dp</dimen>
+    <dimen name="doctor_sub_title_margin_top">5dp</dimen>
+
+
+    <!--doctor tab layout dimens-->
+    <dimen name="doctor_tab_layout_margin_top">15dp</dimen>
+    <dimen name="doctor_tab_layout_height">50dp</dimen>
+    <dimen name="doctor_tab_indicator_height">5dp</dimen>
+
+    <!--doctor overview frag-->
+    <dimen name="overview_subheader_margin_top">20dp</dimen>
+    <dimen name="overview_item_text_size">18sp</dimen>
+    <dimen name="overview_tag_text_size">13sp</dimen>
+    <dimen name="overview_tag_padding_horizontal">7dp</dimen>
+    <dimen name="overview_tag_padding_vertical">2dp</dimen>
+    <dimen name="overview_tag_margin_top">3dp</dimen>
+    <dimen name="overview_guideline_start">30dp</dimen>
+    <dimen name="overview_guideline_end">30dp</dimen>
+    <dimen name="overview_guideline_top">5dp</dimen>
+    <dimen name="iverview_direction_margin_bottom">15dp</dimen>
+
+    <!--doctor costs-->
+    <dimen name="costs_guideline_top">25dp</dimen>
+    <dimen name="costs_guideline_start">30dp</dimen>
+    <dimen name="costs_guideline_end">30dp</dimen>
+    <dimen name="costs_label_max_width">48dp</dimen>
+    <dimen name="costs_recycler_height">60dp</dimen>
+    <dimen name="costs_recycler_text_size">16sp</dimen>
+    <dimen name="costs_recycler_inner_cost_label_text_size">18sp</dimen>
+
+    <!--Shared-->
+    <dimen name="sub_header_text_size">12sp</dimen>
+
+
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--Toolbar Colors-->
+    <color name="toolbarTextColor">@android:color/white</color>
+
+    <!--Doctor Colors-->
+    <color name="doctorTitleTextColor">#FF223D68</color>
+    <color name="doctorSubTitleTextColor">#FF333333</color>
+    <color name="doctorTabSelectorColor">#FF64C5AF</color>
+    <color name="doctorTabBorder">#FFAAAAAA</color>
+    <color name="subHeaderColor">#FF919191</color>
+    <color name="doctorOverviewValueColor">#FF555555</color>
+    <color name="doctorOverviewPriceTagColor">#FFFB646B</color>
+
+</resources>
