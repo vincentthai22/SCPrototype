@@ -1,43 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/costs_recycler_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/costsStartGuideLine"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/costsConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/costs_recycler_height">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/costsStartGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/costs_guideline_start" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/costsEndGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/costs_guideline_end" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/providerEndGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".65" />
+
+        <ImageView
+            android:id="@+id/groupImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_group"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/costsStartGuideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/costIDTextView"
+            style="@style/CostsRecyclerIdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            app:layout_constraintBottom_toTopOf="@id/deniedImageView"
+            app:layout_constraintStart_toEndOf="@id/groupImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="#87454" />
+
+        <ImageView
+            android:id="@+id/deniedImageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_denied"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/costIDTextView"
+            app:layout_constraintTop_toBottomOf="@id/costIDTextView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/deniedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="@string/costs_denied"
+            android:textColor="@color/doctorOverviewValueColor"
+            app:layout_constraintBottom_toBottomOf="@id/deniedImageView"
+            app:layout_constraintStart_toEndOf="@id/deniedImageView"
+            app:layout_constraintTop_toTopOf="@id/deniedImageView" />
+
+        <TextView
+            android:id="@+id/providerRateTextView"
+            style="@style/CostsRecyclerRatesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/providerEndGuideLine"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$60.00" />
+
+        <TextView
+            android:id="@+id/coversRateTextView"
+            style="@style/CostsRecyclerRatesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/costsEndGuideLine"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$60.00" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/costItemRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/costs_guideline_start" />
+        app:layout_constraintTop_toBottomOf="@id/costsConstraintLayout"
+        android:paddingBottom="20dp"/>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/costsEndGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/costs_guideline_end" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/providerEndGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".65" />
-
-    <ImageView
-        android:id="@+id/groupImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_group"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/costsStartGuideLine"/>
-
-    <TextView
-        android:id="@+id/costIDTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="30dp"
+        android:background="@color/doctorTabBorder"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

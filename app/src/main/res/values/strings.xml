@@ -15,5 +15,6 @@
     <string name="costs_cost_label">Cost</string>
     <string name="costs_provider_rate_label">Provider Rate</string>
     <string name="costs_covers_label">Sidecar Covers</string>
+    <string name="costs_denied">Denied</string>
 
 </resources>

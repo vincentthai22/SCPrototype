@@ -7,6 +7,7 @@ class Doctor: Parcelable {
 
     var name = "Alice Chang"
     var specialties = ArrayList<String>()
+    var doctorCosts = ArrayList<DoctorCost>()
     var address = ""
     var phone = ""
     var prices = ""
@@ -17,11 +18,12 @@ class Doctor: Parcelable {
 
     constructor(parcel: Parcel) {
         with(parcel, {
-            name = readString()
-            readStringList(specialties)
-            address = readString()
-            phone = readString()
-            prices = readString()
+            name = readString() ?: ""
+            readStringList(specialties) ?: ArrayList<String>()
+            address = readString() ?: ""
+            phone = readString() ?: ""
+            prices = readString() ?: ""
+            readTypedList(doctorCosts, DoctorCost.CREATOR)
         })
     }
 
@@ -32,6 +34,7 @@ class Doctor: Parcelable {
             writeString(address)
             writeString(phone)
             writeString(prices)
+            writeTypedList(doctorCosts)
         })
     }
 

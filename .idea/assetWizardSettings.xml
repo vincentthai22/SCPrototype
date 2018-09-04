@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_directions_button" />
-                            <entry key="sourceFile" value="C:\Users\vthai\Downloads\directions_button.svg" />
+                            <entry key="outputName" value="ic_denied" />
+                            <entry key="sourceFile" value="C:\Users\vthai\Downloads\denied.svg" />
                           </map>
                         </option>
                       </PersistentState>
