@@ -4,6 +4,11 @@ import com.example.vthai.sidecarprototype.model.Doctor
 import com.example.vthai.sidecarprototype.model.DoctorCost
 import com.example.vthai.sidecarprototype.model.DoctorCostItem
 
+/**
+ * DataSourceManager
+ *
+ * Function: Handles all server calls and serves as a mediator for all other data sources.
+ */
 object DataSourceManager {
 
     fun retrieveDoctorOverviewData(docId: String, listener: DoctorOverviewAsyncTask.Listener) {

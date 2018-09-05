@@ -43,6 +43,9 @@
     <dimen name="costs_recycler_inner_vertical_margin">15dp</dimen>
     <dimen name="costs_recycler_inner_height">90dp</dimen>
     <dimen name="costs_recycler_inner_width">130dp</dimen>
+    <!--90 + margins-->
+    <dimen name="recycler_min_height">130dp</dimen>
+
 
     <!--Shared-->
     <dimen name="sub_header_text_size">12sp</dimen>

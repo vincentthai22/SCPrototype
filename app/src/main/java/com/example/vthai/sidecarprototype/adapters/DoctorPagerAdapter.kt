@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.vthai.sidecarprototype.R
 import com.example.vthai.sidecarprototype.model.Doctor
+import com.example.vthai.sidecarprototype.model.DoctorCost
 import com.example.vthai.sidecarprototype.viewmodels.DoctorViewModel
 import kotlinx.android.synthetic.main.content_doctor_costs.view.*
 import kotlinx.android.synthetic.main.content_doctor_overview.view.*
@@ -24,17 +25,25 @@ class DoctorPagerAdapter(var context: AppCompatActivity, var viewModel: DoctorVi
         val view = if(position == 0) {
             val temp = LayoutInflater.from(context).inflate(R.layout.content_doctor_overview, container, false)
             overviewView = temp
-            viewModel.doctor.observe(context, doctorObserver)
+            setupOverviewView(temp)
             temp
         } else {
             val temp = LayoutInflater.from(context).inflate(R.layout.content_doctor_costs, container, false)
             costsView = temp
             setupCostsView(temp)
-            viewModel.doctor.observe(context, costsObserver)
             temp
         }
         container.addView(view)
         return view
+    }
+
+    private fun setupOverviewView(view: View) {
+        view.overviewCallImageView.setOnClickListener { viewModel.notifyViewModelOnCallClicked() }
+        view.overviewDirectionsImageView.setOnClickListener{ viewModel.notifyViewModelOnDirectionsClicked()}
+        viewModel.doctorAddressLiveData.observe(context, addressObserver)
+        viewModel.doctorPhoneLiveData.observe(context, phoneObserver)
+        viewModel.doctorSpecialtiesLiveData.observe(context, specialtyObserver)
+        viewModel.doctorPricesLiveData.observe(context, pricesObserver)
     }
 
     private fun setupCostsView(view: View) {
@@ -42,21 +51,29 @@ class DoctorPagerAdapter(var context: AppCompatActivity, var viewModel: DoctorVi
         view.costsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         view.costsRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         view.costsRecyclerView.adapter = costsAdapter
+
+        viewModel.doctorCostListLiveData.observe(context, costsObserver)
     }
 
-    private val doctorObserver = Observer<Doctor>() {
-        overviewView.addressSubHeaderValueTextView.text = it?.address
-        overviewView.phoneSubHeaderValueTextView.text = it?.phone
-        val sb = StringBuilder()
-        for(specialty in it?.specialties ?: ArrayList()) {
-            sb.appendln(specialty)
-        }
-        overviewView.specialtiesSubHeaderValueTextView.text = sb.toString()
-        overviewView.pricesSubHeaderValueTextView.text = it?.prices
+    private val addressObserver = Observer<String> {
+        overviewView.addressSubHeaderValueTextView.text = it
     }
 
-    private val costsObserver = Observer<Doctor>() {
-        costsAdapter?.costList = it?.doctorCosts ?: ArrayList()
+    private val phoneObserver = Observer<String> {
+        overviewView.phoneSubHeaderValueTextView.text = it
+    }
+
+    private val specialtyObserver = Observer<String> {
+        overviewView.specialtiesSubHeaderValueTextView.text = it
+    }
+
+    private val pricesObserver = Observer<String> {
+        overviewView.pricesSubHeaderValueTextView.text = it
+    }
+
+
+    private val costsObserver = Observer<List<DoctorCost>>() {
+        costsAdapter?.costList = it as? ArrayList<DoctorCost> ?: ArrayList()
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {

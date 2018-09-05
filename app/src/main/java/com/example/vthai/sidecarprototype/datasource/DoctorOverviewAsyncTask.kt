@@ -10,10 +10,21 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+/**
+ * DoctorOverviewAsyncTask
+ *
+ * Function: Responsible for retrieving general doctor information via GET request.
+ */
 class DoctorOverviewAsyncTask: AsyncTask<String, String, String>() {
 
+    /**
+     * DoctorOverviewAsyncTask.Listener
+     *
+     * function: Responsible for callbacks to the activity.
+     */
     interface Listener {
         fun onOverviewTaskCompleted(doctor: Doctor?)
+        fun onOverviewTaskFailed()
     }
 
     companion object {
@@ -27,6 +38,7 @@ class DoctorOverviewAsyncTask: AsyncTask<String, String, String>() {
         const val JSON_SPECIALTIES_KEY = "specialties"
         const val JSON_PRICE_KEY = "price"
         const val ADDRESS_FORMAT_ST_ST2_CITY_ST_ZIP = "%s%s %s, %s %s"
+
         fun retrieveDoctorDataFrom(url: String, listener: Listener, doctor: Doctor) {
             val task = DoctorOverviewAsyncTask()
             with(task, {
@@ -58,6 +70,7 @@ class DoctorOverviewAsyncTask: AsyncTask<String, String, String>() {
             return buffer.toString()
         } catch (e: Exception) {
             e.printStackTrace()
+            listener?.onOverviewTaskFailed()
         } finally {
             if (connection != null) {
                 connection.disconnect()
@@ -68,6 +81,7 @@ class DoctorOverviewAsyncTask: AsyncTask<String, String, String>() {
                     reader.close()
             } catch (exception: IOException) {
                 exception.printStackTrace()
+                listener?.onOverviewTaskFailed()
             }
         }
         return "";
@@ -75,25 +89,29 @@ class DoctorOverviewAsyncTask: AsyncTask<String, String, String>() {
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        Log.d("DOCTOROVERVIEW: ", result)
-        val jObject = JSONObject(result)
-        val addressJObject = jObject.getJSONObject(JSON_ADDRESS_KEY)
-        val phone = jObject.getString(JSON_PHONE_KEY)
-        val specialtiesJArray = jObject.getJSONArray(JSON_SPECIALTIES_KEY)
-        val priceString = jObject.getString(JSON_PRICE_KEY)
-        doctor?.address = String.format(ADDRESS_FORMAT_ST_ST2_CITY_ST_ZIP,
-                addressJObject.getString(JSON_STREET_KEY),
-                addressJObject.getString(JSON_STREET2_KEY),
-                addressJObject.getString(JSON_CITY_KEY),
-                addressJObject.getString(JSON_STATE_KEY),
-                addressJObject.getString(JSON_ZIP_KEY))
-        doctor?.phone = phone
-        doctor?.prices = priceString
-        var iter = 0
-        while(!specialtiesJArray.isNull(iter)) {
-            val specialty: String? = specialtiesJArray[iter++] as? String
-            if(specialty!=null) doctor?.specialties?.add(specialty)
+        try {
+            Log.d("DOCTOROVERVIEW: ", result)
+            val jObject = JSONObject(result)
+            val addressJObject = jObject.getJSONObject(JSON_ADDRESS_KEY)
+            val phone = jObject.getString(JSON_PHONE_KEY)
+            val specialtiesJArray = jObject.getJSONArray(JSON_SPECIALTIES_KEY)
+            val priceString = jObject.getString(JSON_PRICE_KEY)
+            doctor?.address = String.format(ADDRESS_FORMAT_ST_ST2_CITY_ST_ZIP,
+                    addressJObject.getString(JSON_STREET_KEY),
+                    addressJObject.getString(JSON_STREET2_KEY),
+                    addressJObject.getString(JSON_CITY_KEY),
+                    addressJObject.getString(JSON_STATE_KEY),
+                    addressJObject.getString(JSON_ZIP_KEY))
+            doctor?.phone = phone
+            doctor?.prices = priceString
+            var iter = 0
+            while (!specialtiesJArray.isNull(iter)) {
+                val specialty: String? = specialtiesJArray[iter++] as? String
+                if (specialty != null) doctor?.specialties?.add(specialty)
+            }
+            listener?.onOverviewTaskCompleted(doctor)
+        } catch(e: Exception) {
+            listener?.onOverviewTaskFailed()
         }
-        listener?.onOverviewTaskCompleted(doctor)
     }
 }

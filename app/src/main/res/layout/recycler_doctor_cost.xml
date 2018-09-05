@@ -101,6 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/costsConstraintLayout"
+        android:minHeight="@dimen/recycler_min_height"
         android:paddingBottom="20dp"/>
 
     <View

@@ -15,6 +15,7 @@ class DoctorCostsAsyncTask: AsyncTask<String, String, String>() {
 
     interface Listener {
         fun onDoctorCostTaskCompleted(doctorCosts: ArrayList<DoctorCost>)
+        fun onDoctorCostTaskFailed()
     }
 
     companion object {
@@ -55,6 +56,7 @@ class DoctorCostsAsyncTask: AsyncTask<String, String, String>() {
             return buffer.toString()
         } catch (e: Exception) {
             e.printStackTrace()
+            listener?.onDoctorCostTaskFailed()
         } finally {
             if (connection != null) {
                 connection.disconnect()
@@ -65,6 +67,7 @@ class DoctorCostsAsyncTask: AsyncTask<String, String, String>() {
                     reader.close()
             } catch (exception: IOException) {
                 exception.printStackTrace()
+                listener?.onDoctorCostTaskFailed()
             }
         }
         return "";
@@ -72,32 +75,36 @@ class DoctorCostsAsyncTask: AsyncTask<String, String, String>() {
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        val jArray = JSONArray(result)
-        var iter = 0
-        var docCosts = ArrayList<DoctorCost>()
-        while(!jArray.isNull(iter)) {
-            val docObject = jArray.getJSONObject(iter++)
-            val doctorCost = DataSourceManager.createDoctorCost()
-            doctorCost.code = docObject.getString(JSON_CODE_KEY)
-            doctorCost.eligibility = docObject.getString(JSON_STATUS_KEY)
-            if(doctorCost.eligibility.equals(Eligibility.Denied.name, true)) {
+        try {
+            val jArray = JSONArray(result)
+            var iter = 0
+            var docCosts = ArrayList<DoctorCost>()
+            while (!jArray.isNull(iter)) {
+                val docObject = jArray.getJSONObject(iter++)
+                val doctorCost = DataSourceManager.createDoctorCost()
+                doctorCost.code = docObject.getString(JSON_CODE_KEY)
+                doctorCost.eligibility = docObject.getString(JSON_STATUS_KEY)
+                if (doctorCost.eligibility.equals(Eligibility.Denied.name, true)) {
+                    docCosts.add(doctorCost)
+                    continue
+                }
+                doctorCost.providerRate = docObject.getDouble(JSON_PROVIDER_RATE_KEY).toFloat()
+                doctorCost.sideCarRate = docObject.getDouble(JSON_SIDECAR_RATE_KEY).toFloat()
+                val itemsJArray = docObject.getJSONArray(JSON_ITEMS_KEY)
+                var itemIter = 0
+                while (!jArray.isNull(itemIter)) {
+                    val itemJObject = itemsJArray.getJSONObject(itemIter++)
+                    val costItem = DataSourceManager.createCostItem()
+                    costItem.id = itemJObject.getString(JSON_ID_KEY)
+                    costItem.amount = itemJObject.getDouble(JSON_AMOUNT_KEY).toFloat()
+                    doctorCost.costItems.add(costItem)
+                }
                 docCosts.add(doctorCost)
-                continue
             }
-            doctorCost.providerRate = docObject.getDouble(JSON_PROVIDER_RATE_KEY).toFloat()
-            doctorCost.sideCarRate = docObject.getDouble(JSON_SIDECAR_RATE_KEY).toFloat()
-            val itemsJArray = docObject.getJSONArray(JSON_ITEMS_KEY)
-            var itemIter = 0
-            while(!jArray.isNull(itemIter)) {
-                val itemJObject = itemsJArray.getJSONObject(itemIter++)
-                val costItem = DataSourceManager.createCostItem()
-                costItem.id = itemJObject.getString(JSON_ID_KEY)
-                costItem.amount = itemJObject.getDouble(JSON_AMOUNT_KEY).toFloat()
-                doctorCost.costItems.add(costItem)
-            }
-            docCosts.add(doctorCost)
+            listener?.onDoctorCostTaskCompleted(docCosts)
+        } catch (e: Exception) {
+            listener?.onDoctorCostTaskFailed()
         }
-        listener?.onDoctorCostTaskCompleted(docCosts)
     }
 
 }

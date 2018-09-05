@@ -2,8 +2,10 @@ package com.example.vthai.sidecarprototype.activities
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.example.vthai.sidecarprototype.R
 import com.example.vthai.sidecarprototype.model.Doctor
@@ -22,10 +24,24 @@ class SplashActivity: AppCompatActivity() {
     private fun setupSplashViewModel() {
         viewModel = ViewModelProvider.AndroidViewModelFactory(application).create(SplashViewModel::class.java)
         viewModel.doctor.observe(this, doctorObserver)
+        viewModel.failFlag.observe(this, failFlagObserver)
     }
 
     private val doctorObserver = Observer<Doctor>() {
         if(it != null) startDoctorActivity(it)
+    }
+
+    private val failFlagObserver = Observer<Boolean> {
+        showFailDialog()
+    }
+
+    private fun showFailDialog() {
+        AlertDialog.Builder(this)
+                .setTitle(getString(R.string.data_load_failed_title))
+                .setMessage(getString(R.string.data_load_failed_msg))
+                .setPositiveButton(getString(R.string.ok), { _, _ -> finish() })
+                .setCancelable(false)
+                .show()
     }
 
     private fun startDoctorActivity(doctor: Doctor) {

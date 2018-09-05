@@ -2,11 +2,11 @@ package com.example.vthai.sidecarprototype.activities
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.vthai.sidecarprototype.R
 import com.example.vthai.sidecarprototype.adapters.DoctorPagerAdapter
-import com.example.vthai.sidecarprototype.model.Doctor
 import com.example.vthai.sidecarprototype.viewmodels.DoctorViewModel
 import kotlinx.android.synthetic.main.activity_doctor.*
 
@@ -29,9 +29,12 @@ class DoctorActivity : AppCompatActivity() {
         doctorToolbarTitle.text = title
     }
 
-    private fun setupViewModel(){
+    private fun setupViewModel() {
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(DoctorViewModel::class.java)
-        viewModel.doctor.observe(this, doctorObserver)
+        viewModel.doctorTitleTextLiveData.observe(this, titleObserver)
+        viewModel.doctorSubTitleTextLiveData.observe(this, subTitleObserver)
+        viewModel.directionsFlag.observe(this, directionsObserver)
+        viewModel.callFlag.observe(this, callObserver)
     }
 
     private fun setupViewPager() {
@@ -42,15 +45,21 @@ class DoctorActivity : AppCompatActivity() {
         doctorTabLayout.getTabAt(1)?.setText(getString(R.string.doctor_tab_costs))
     }
 
-    private val doctorObserver = Observer<Doctor>() {
-        doctorTitleTextView.text = it?.name
-        if((it?.specialties ?: ArrayList()).isNotEmpty()) {
-            doctorSubTitleTextView.text = it?.specialties?.get(0)
-        }
+    private val subTitleObserver = Observer<String> {
+        doctorSubTitleTextView.text = it ?: ""
     }
 
-    private fun setupTabLayout() {
+    private val titleObserver = Observer<String> {
+        doctorTitleTextView.text = it ?: ""
+    }
 
+
+    private val directionsObserver = Observer<Intent>() {
+        if (it != null) startActivity(it)
+    }
+
+    private val callObserver = Observer<Intent> {
+        if (it != null) startActivity(it)
     }
 
     companion object {

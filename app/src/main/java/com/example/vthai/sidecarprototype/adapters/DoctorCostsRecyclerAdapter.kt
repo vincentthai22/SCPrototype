@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import com.example.vthai.sidecarprototype.R
 import com.example.vthai.sidecarprototype.model.DoctorCost
 import com.example.vthai.sidecarprototype.utils.Eligibility
@@ -16,7 +17,7 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
     var costList = ArrayList<DoctorCost>()
         set(value) {
             field = value
-            for(i in 0 until costList.size) {
+            for (i in 0 until costList.size) {
                 selectedMap[i] = false
             }
             notifyDataSetChanged()
@@ -80,17 +81,33 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
                         selectedMap[pos] = true
                         val doctorCost = costList[pos]
                         adapter?.costItemList = doctorCost.costItems
-                        if(doctorCost.costItems.isNotEmpty()) {
+                        if (doctorCost.costItems.isNotEmpty()) {
                             recyclerView.visibility = View.VISIBLE
                             animate().rotation(45f).start()
-                            recyclerView.scaleY = 0f
-                            recyclerView.animate().scaleY(1f)
+                            recyclerView.animate()
+                                    .setDuration(300)
+                                    .setInterpolator(DecelerateInterpolator())
+                                    .setUpdateListener {
+                                        val newHeight = (recyclerView.minimumHeight * it.animatedFraction).toInt()
+                                        recyclerView.layoutParams.height = if (newHeight < 1) 1 else newHeight
+                                        recyclerView.requestLayout()
+                                    }
+                                    .start()
+
                         }
                         return@with
                     } else {
                         selectedMap[pos] = false
                         animate().rotation(0f).start()
-                        recyclerView.animate().withEndAction { recyclerView.visibility = View.GONE }.scaleY(0f)
+                        recyclerView.animate().withEndAction { recyclerView.visibility = View.GONE }
+                                .setDuration(300)
+                                .setInterpolator(DecelerateInterpolator())
+                                .setUpdateListener {
+                                    val newHeight = (recyclerView.minimumHeight * (1f - it.animatedFraction)).toInt()
+                                    recyclerView.layoutParams.height = if (newHeight < 1) 1 else newHeight
+                                    recyclerView.requestLayout()
+                                }
+                                .start()
                     }
                 })
             }

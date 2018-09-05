@@ -17,4 +17,11 @@
     <string name="costs_covers_label">Sidecar Covers</string>
     <string name="costs_denied">Denied</string>
 
+    <!--Load Failed-->
+    <string name="data_load_failed_title">Oops</string>
+    <string name="data_load_failed_msg">There seems to be an issue retrieving this doctor\'s information. Please check your connection.</string>
+
+    <!--Common-->
+    <string name="ok">OK</string>
+
 </resources>

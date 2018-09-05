@@ -14,12 +14,14 @@ import com.example.vthai.sidecarprototype.model.DoctorCost
 class SplashViewModel(app: Application): AndroidViewModel(app), DoctorOverviewAsyncTask.Listener, DoctorCostsAsyncTask.Listener {
     var doctor: MutableLiveData<Doctor>
     var doctorCosts: ArrayList<DoctorCost> = ArrayList()
+    var failFlag: MutableLiveData<Boolean>
 
     init {
         Log.d("SplashVM", "inside init")
         DataSourceManager.retrieveDoctorCostData(SplashActivity.TEST_DOC_ID, this)
         doctor = MutableLiveData()
         doctor.value = null
+        failFlag = MutableLiveData()
     }
 
     override fun onDoctorCostTaskCompleted(doctorCosts: ArrayList<DoctorCost>) {
@@ -30,5 +32,13 @@ class SplashViewModel(app: Application): AndroidViewModel(app), DoctorOverviewAs
     override fun onOverviewTaskCompleted(doctor: Doctor?) {
         doctor?.doctorCosts?.addAll(doctorCosts)
         this.doctor.value = doctor
+    }
+
+    override fun onOverviewTaskFailed() {
+        failFlag.value = true
+    }
+
+    override fun onDoctorCostTaskFailed() {
+        failFlag.value = true
     }
 }
