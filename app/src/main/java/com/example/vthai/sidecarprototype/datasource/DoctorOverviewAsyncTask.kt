@@ -96,12 +96,6 @@ class DoctorOverviewAsyncTask: AsyncTask<String, String, String>() {
             val phone = jObject.getString(JSON_PHONE_KEY)
             val specialtiesJArray = jObject.getJSONArray(JSON_SPECIALTIES_KEY)
             val priceString = jObject.getString(JSON_PRICE_KEY)
-            doctor?.address = String.format(ADDRESS_FORMAT_ST_ST2_CITY_ST_ZIP,
-                    addressJObject.getString(JSON_STREET_KEY),
-                    addressJObject.getString(JSON_STREET2_KEY),
-                    addressJObject.getString(JSON_CITY_KEY),
-                    addressJObject.getString(JSON_STATE_KEY),
-                    addressJObject.getString(JSON_ZIP_KEY))
             doctor?.phone = phone
             doctor?.prices = priceString
             var iter = 0

@@ -1,84 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/costsStartGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/costs_guideline_start" />
+<layout>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/costsEndGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/costs_guideline_end" />
+    <data>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/providerEndGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".65" />
+        <variable
+            name="viewModel"
+            type="com.example.vthai.sidecarprototype.viewmodels.DoctorViewModel"/>
+    </data>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/costsTopGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/costs_guideline_top" />
-
-
-    <TextView
-        android:id="@+id/sidecarLabelText"
-        style="@style/CostsLabelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/costs_covers_label"
-        app:layout_constraintEnd_toStartOf="@id/costsEndGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/costsTopGuideLine" />
-
-    <TextView
-        android:id="@+id/providerRateLabelText"
-        style="@style/CostsLabelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="58dp"
-        android:text="@string/costs_provider_rate_label"
-        app:layout_constraintEnd_toStartOf="@id/providerEndGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/costsTopGuideLine" />
-
-    <TextView
-        android:id="@+id/costLabelText"
-        style="@style/CostsLabelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/costs_cost_label"
-        app:layout_constraintBottom_toBottomOf="@id/sidecarLabelText"
-        app:layout_constraintStart_toStartOf="@id/costsStartGuideLine" />
-
-    <View
-        android:id="@+id/lineSeparatorView"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/doctorTabBorder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/costsStartGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/sidecarLabelText" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/costsRecyclerView"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lineSeparatorView" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.constraint.Guideline
+            android:id="@+id/costsStartGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/costs_guideline_start" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/costsEndGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/costs_guideline_end" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/providerEndGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".65" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/costsTopGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/costs_guideline_top" />
+
+
+        <TextView
+            android:id="@+id/sidecarLabelText"
+            style="@style/CostsLabelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/costs_covers_label"
+            app:layout_constraintEnd_toStartOf="@id/costsEndGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/costsTopGuideLine" />
+
+        <TextView
+            android:id="@+id/providerRateLabelText"
+            style="@style/CostsLabelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="58dp"
+            android:text="@string/costs_provider_rate_label"
+            app:layout_constraintEnd_toStartOf="@id/providerEndGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/costsTopGuideLine" />
+
+        <TextView
+            android:id="@+id/costLabelText"
+            style="@style/CostsLabelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/costs_cost_label"
+            app:layout_constraintBottom_toBottomOf="@id/sidecarLabelText"
+            app:layout_constraintStart_toStartOf="@id/costsStartGuideLine" />
+
+        <View
+            android:id="@+id/lineSeparatorView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/doctorTabBorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/costsStartGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/sidecarLabelText" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/costsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="24dp"
+            app:doctorCostList="@{viewModel.doctorCostListLiveData}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lineSeparatorView" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

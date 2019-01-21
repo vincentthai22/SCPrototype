@@ -3,13 +3,17 @@ package com.example.vthai.sidecarprototype.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.vthai.sidecarprototype.utils.Eligibility
+import com.google.gson.annotations.SerializedName
 
 class DoctorCost : Parcelable {
 
     var code = ""
     var providerRate = 0.0f
     var sideCarRate = 0.0f
+    @SerializedName("status")
     var eligibility = ""
+
+    @SerializedName("items")
     var costItems = ArrayList<DoctorCostItem>()
 
     constructor() {

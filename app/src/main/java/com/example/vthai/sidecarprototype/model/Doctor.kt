@@ -2,40 +2,46 @@ package com.example.vthai.sidecarprototype.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 class Doctor: Parcelable {
 
     var name = "Alice Chang"
-    var specialties = ArrayList<String>()
-    var doctorCosts = ArrayList<DoctorCost>()
-    var address = ""
-    var phone = ""
-    var prices = ""
 
+    @SerializedName("address")
+    var address = Address()
+    var doctorCosts = ArrayList<DoctorCost>()
+    @SerializedName("phone")
+    var phone = ""
+    @SerializedName("price")
+    var prices = ""
     constructor() {
 
     }
 
+    @SerializedName("specialties")
+    var specialties = ArrayList<String>()
+
     constructor(parcel: Parcel) {
-        with(parcel, {
+        with(parcel) {
             name = readString() ?: ""
-            readStringList(specialties) ?: ArrayList<String>()
-            address = readString() ?: ""
+            readStringList(specialties)
+            address = readTypedObject(Address.CREATOR)
             phone = readString() ?: ""
             prices = readString() ?: ""
             readTypedList(doctorCosts, DoctorCost.CREATOR)
-        })
+        }
     }
 
     override fun writeToParcel(p0: Parcel, p1: Int) {
-        with(p0, {
+        with(p0) {
             writeString(name)
             writeStringList(specialties)
-            writeString(address)
+            writeTypedObject(address, 0)
             writeString(phone)
             writeString(prices)
             writeTypedList(doctorCosts)
-        })
+        }
     }
 
     override fun describeContents(): Int {
@@ -53,6 +59,7 @@ class Doctor: Parcelable {
                 return arrayOfNulls(p0)
             }
         }
+
     }
 
 }

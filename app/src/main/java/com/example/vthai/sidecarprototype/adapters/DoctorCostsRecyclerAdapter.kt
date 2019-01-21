@@ -35,7 +35,7 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
 
     override fun onBindViewHolder(holder: CostsViewHolder, position: Int) {
         val item = costList[position]
-        with(holder, {
+        with(holder) {
             costIDTextView.text = "#${item.code}"
             providerRateTextView.text = String.format("$%.2f", item.providerRate)
             coverRateTextView.text = String.format("$%.2f", item.sideCarRate)
@@ -56,7 +56,7 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
                 recyclerView.visibility = View.GONE
             }
             groupImageView.tag = position
-        })
+        }
     }
 
     private fun isSelected(pos: Int): Boolean? {
@@ -75,7 +75,7 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
 
         init {
             groupImageView.setOnClickListener {
-                with(groupImageView, {
+                with(groupImageView) {
                     val pos = tag as Int
                     if (isSelected(pos) == false) { //initial click event or was closed
                         selectedMap[pos] = true
@@ -109,7 +109,7 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
                                 }
                                 .start()
                     }
-                })
+                }
             }
             adapter = DoctorCostItemRecyclerAdapter(context)
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
