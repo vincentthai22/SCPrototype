@@ -53,6 +53,11 @@ class SplashActivity: AppCompatActivity() {
         finish()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.notifyViewModelOnDestroy()
+    }
+
     companion object {
         const val TEST_DOC_ID = "12345"
     }

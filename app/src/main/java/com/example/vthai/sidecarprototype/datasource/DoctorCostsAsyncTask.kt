@@ -4,7 +4,6 @@ import android.os.AsyncTask
 import com.example.vthai.sidecarprototype.model.DoctorCost
 import com.example.vthai.sidecarprototype.utils.Eligibility
 import org.json.JSONArray
-import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -89,7 +88,7 @@ class DoctorCostsAsyncTask: AsyncTask<String, String, String>() {
                     continue
                 }
                 doctorCost.providerRate = docObject.getDouble(JSON_PROVIDER_RATE_KEY).toFloat()
-                doctorCost.sideCarRate = docObject.getDouble(JSON_SIDECAR_RATE_KEY).toFloat()
+                doctorCost.sidecarRate = docObject.getDouble(JSON_SIDECAR_RATE_KEY).toFloat()
                 val itemsJArray = docObject.getJSONArray(JSON_ITEMS_KEY)
                 var itemIter = 0
                 while (!jArray.isNull(itemIter)) {

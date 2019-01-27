@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import com.example.vthai.sidecarprototype.R
+import com.example.vthai.sidecarprototype.databinding.RecyclerDoctorCostBinding
 import com.example.vthai.sidecarprototype.model.DoctorCost
-import com.example.vthai.sidecarprototype.utils.Eligibility
 import kotlinx.android.synthetic.main.recycler_doctor_cost.view.*
 
 class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<DoctorCostsRecyclerAdapter.CostsViewHolder>() {
@@ -26,7 +26,7 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
     var selectedMap = HashMap<Int, Boolean>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CostsViewHolder {
-        return CostsViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_doctor_cost, parent, false))
+        return CostsViewHolder(RecyclerDoctorCostBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -34,20 +34,8 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
     }
 
     override fun onBindViewHolder(holder: CostsViewHolder, position: Int) {
-        val item = costList[position]
         with(holder) {
-            costIDTextView.text = "#${item.code}"
-            providerRateTextView.text = String.format("$%.2f", item.providerRate)
-            coverRateTextView.text = String.format("$%.2f", item.sideCarRate)
-            if (item.eligibility.equals(Eligibility.Denied.name, true)) {
-                deniedImageView.visibility = View.VISIBLE
-                deniedTextView.visibility = View.VISIBLE
-                coverRateTextView.text = "$—"
-                providerRateTextView.text = "$—"
-            } else {
-                deniedImageView.visibility = View.GONE
-                deniedTextView.visibility = View.GONE
-            }
+            binding.doctorCost = costList[position]
             if (isSelected(position) == true) {
                 groupImageView.rotation = 45f
                 recyclerView.visibility = View.VISIBLE
@@ -63,14 +51,9 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
         return selectedMap[pos]
     }
 
-    inner class CostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CostsViewHolder(var binding: RecyclerDoctorCostBinding) : RecyclerView.ViewHolder(binding.root) {
         val recyclerView = itemView.costItemRecyclerView
         val groupImageView = itemView.groupImageView
-        val costIDTextView = itemView.costIDTextView
-        val providerRateTextView = itemView.providerRateTextView
-        val coverRateTextView = itemView.coversRateTextView
-        val deniedImageView = itemView.deniedImageView
-        val deniedTextView = itemView.deniedTextView
         var adapter: DoctorCostItemRecyclerAdapter? = null
 
         init {
@@ -80,7 +63,6 @@ class DoctorCostsRecyclerAdapter(var context: Context) : RecyclerView.Adapter<Do
                     if (isSelected(pos) == false) { //initial click event or was closed
                         selectedMap[pos] = true
                         val doctorCost = costList[pos]
-                        adapter?.costItemList = doctorCost.costItems
                         if (doctorCost.costItems.isNotEmpty()) {
                             recyclerView.visibility = View.VISIBLE
                             animate().rotation(45f).start()

@@ -3,6 +3,9 @@ package com.example.vthai.sidecarprototype.datasource
 import com.example.vthai.sidecarprototype.model.Doctor
 import com.example.vthai.sidecarprototype.model.DoctorCost
 import com.example.vthai.sidecarprototype.model.DoctorCostItem
+import com.example.vthai.sidecarprototype.utils.await
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,25 +36,25 @@ object DataSourceManager {
         return retrofit
     }
 
+    //------------------------------------ callback impl (begin) ------------------------------------//
     fun retrieveDoctorOverviewData(docId: String, listener: DoctorOverviewAsyncTask.Listener) {
         doctorService.retrieveDoctors(docId)
-                .enqueue(object: Callback<Doctor> {
+                .enqueue(object : Callback<Doctor> {
                     override fun onFailure(call: Call<Doctor>, t: Throwable) {
                         listener.onOverviewTaskFailed()
                     }
 
                     override fun onResponse(call: Call<Doctor>, response: Response<Doctor>) {
-                        if(response.isSuccessful) {
+                        if (response.isSuccessful) {
                             listener.onOverviewTaskCompleted(response.body())
                         }
                     }
                 })
-//        DoctorDataSource.retrieveDoctorOverviewData(docId, createDoctor(), listener)
     }
 
     fun retrieveDoctorCostData(docId: String, listener: DoctorCostsAsyncTask.Listener) {
         doctorService.retrieveDoctorCosts(docId)
-                .enqueue(object: Callback<List<DoctorCost>> {
+                .enqueue(object : Callback<List<DoctorCost>> {
                     override fun onFailure(call: Call<List<DoctorCost>>, t: Throwable) {
                         listener.onDoctorCostTaskFailed()
                     }
@@ -62,12 +65,20 @@ object DataSourceManager {
                         }
                     }
                 })
-//        DoctorDataSource.retrieveDoctorCostData(docId, listener)
+    }
+    //------------------------------------ callback impl (end) ------------------------------------//
+
+
+    //------------------------------------ coroutine impl (begin) ------------------------------------//
+    suspend fun retrieveDoctorCostDataByCoroutine(docId: String): List<DoctorCost> {
+        return doctorService.retrieveDoctorCosts(docId).await()
     }
 
-    fun createDoctor(): Doctor {
-        return Doctor()
+    suspend fun retrieveDoctorOverviewByCoroutine(docId: String): Doctor {
+        return doctorService.retrieveDoctors(docId).await()
     }
+
+    //------------------------------------ coroutine impl (begin) ------------------------------------//
 
     fun createDoctorCost(): DoctorCost {
         return DoctorCost()
