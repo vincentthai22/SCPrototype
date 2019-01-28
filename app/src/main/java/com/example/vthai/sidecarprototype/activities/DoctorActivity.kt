@@ -38,8 +38,6 @@ class DoctorActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(DoctorViewModel::class.java)
-        viewModel.doctorTitleTextLiveData.observe(this, titleObserver)
-        viewModel.doctorSubTitleTextLiveData.observe(this, subTitleObserver)
         viewModel.directionsFlag.observe(this, directionsObserver)
         viewModel.callFlag.observe(this, callObserver)
     }
@@ -51,15 +49,6 @@ class DoctorActivity : AppCompatActivity() {
         doctorTabLayout.getTabAt(0)?.setText(getString(R.string.doctor_tab_overview))
         doctorTabLayout.getTabAt(1)?.setText(getString(R.string.doctor_tab_costs))
     }
-
-    private val subTitleObserver = Observer<String> {
-        doctorSubTitleTextView.text = it ?: ""
-    }
-
-    private val titleObserver = Observer<String> {
-        doctorTitleTextView.text = it ?: ""
-    }
-
 
     private val directionsObserver = Observer<Intent>() {
         try {
